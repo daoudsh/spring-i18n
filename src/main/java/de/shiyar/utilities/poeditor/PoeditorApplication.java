@@ -1,4 +1,4 @@
-package com.dt.be.poeditor;
+package de.shiyar.utilities.poeditor;
 
 import ch.vorburger.mariadb4j.springframework.MariaDB4jSpringService;
 import org.springframework.boot.ApplicationArguments;

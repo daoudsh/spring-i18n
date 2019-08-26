@@ -33,6 +33,9 @@ public class MainController {
     @Value("${log.directory.path}")
     private String logFolder;
 
+    @Value("${spring.database.name}")
+    private String dbName;
+
     private ObjectMapper objectMapper;
     private MessagesRepository messagesRepository;
 
@@ -65,7 +68,7 @@ public class MainController {
                 messagesRepository.insertUpdate(messagesEntity.getCode(), messagesEntity.getLocal(), messagesEntity.getMessage());
             });
 
-            String truncate = "\nuse osca; \ntruncate table messages_source;\n\n";
+            String truncate = String.format("%n use %s; %n%n", dbName);
 
             String sql = IOUtils.toString(fis);
 

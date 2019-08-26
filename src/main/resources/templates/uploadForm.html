@@ -65,7 +65,7 @@ func();
                         Choose the language
                     </label>
                     <select name="language" id="languages" class="selectpicker">
-                        <option th:each="lang : ${T(com.dt.be.poeditor.pojo.Languages).values()}"
+                        <option th:each="lang : ${T(de.shiyar.utilities.poeditor.pojo.Languages).values()}"
                                 th:value="${lang.local}" th:text="${lang}"></option>
                     </select>
                 </div>

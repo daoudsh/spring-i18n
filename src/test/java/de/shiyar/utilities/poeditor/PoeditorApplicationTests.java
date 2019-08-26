@@ -1,4 +1,4 @@
-package com.dt.be.poeditor;
+package de.shiyar.utilities.poeditor;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>POEditor SQL generation</title>
+
+    <meta name="author" content="Shiyar Daoud">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script>
+
+$.ajaxSetup({
+    timeout: 3000,
+    retryAfter: 1000
+});
+
+function func() {
+    try {
+        $.ajax({
+            type: "GET",
+            url: "/alive",
+            success: function() {
+                setTimeout(function() {
+                    func()
+                }, $.ajaxSetup().retryAfter);
+                $("#submit-file").attr("disabled", false);
+            },
+            error: function() {
+
+                setTimeout(function() {
+                    func()
+                }, $.ajaxSetup().retryAfter);
+                $("#submit-file").attr("disabled", true);
+            }
+        });
+    } catch (err) {
+        console.log('error');
+    }
+
+}
+
+func();
+
+
+
+    </script>
+</head>
+<body>
+
+<div class="container-fluid container h-100">
+
+    <div class="row justify-content-center align-items-center">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <h3>Upload the JSON file from the POEditor</h3>
+            <form role="form" method="POST" enctype="multipart/form-data" action="/poeditor/download">
+                <div class="form-group">
+
+                    <label for="languages">
+                        Choose the language
+                    </label>
+                    <select name="language" id="languages" class="selectpicker">
+                        <option th:each="lang : ${T(com.dt.be.poeditor.pojo.Languages).values()}"
+                                th:value="${lang.local}" th:text="${lang}"></option>
+                    </select>
+                </div>
+                <div class="form-group">
+
+                    <label for="exampleInputFile">
+                        File input
+                    </label>
+                    <input type="file" name="file" class="form-control-file" id="exampleInputFile">
+
+                </div>
+                <button id="submit-file" type="submit" class="btn btn-primary">
+                    Submit
+                </button>
+            </form>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+</div>
+
+</body>
+</html>
